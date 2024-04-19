@@ -1,0 +1,12 @@
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  generateName: redhat-pruebas-
+  annotations:
+    olm.providedAPIs: WebServer.v1alpha1.web.servers.org
+  name: dcelenta-test-xxxxx
+spec:
+  targetNamespaces:
+    - redhat-pruebas
+  upgradeStrategy: Default
+
