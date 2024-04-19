@@ -1,0 +1,418 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: ClusterServiceVersion
+metadata:
+  annotations:
+    features.operators.openshift.io/token-auth-azure: 'false'
+    operators.openshift.io/valid-subscription: '["Red Hat JBoss Web Server", "Red Hat Runtimes"]'
+    operators.operatorframework.io/builder: operator-sdk-v1.12.0+git
+    features.operators.openshift.io/token-auth-gcp: 'false'
+    operators.operatorframework.io/project_layout: go.kubebuilder.io/v3
+    certified: 'false'
+# REVIEW    
+    olm.targetNamespaces: redhat-pruebas
+    olm.operatorNamespace: redhat-pruebas
+    olm.operatorGroup: dcelenta-test-kffzn    
+    operatorframework.io/properties: >-
+      {"properties":[{"type":"olm.gvk","value":{"group":"web.servers.org","kind":"WebServer","version":"v1alpha1"}},{"type":"olm.package","value":{"packageName":"jws-operator","version":"2.0.11"}}]}
+    repository: 'https://github.com/web-servers/jws-operator'
+    features.operators.openshift.io/token-auth-aws: 'false'
+    support: Red Hat
+    alm-examples: |-
+      [
+        {
+          "apiVersion": "web.servers.org/v1alpha1",
+          "kind": "WebServer",
+          "metadata": {
+            "name": "example-image-webserver"
+          },
+          "spec": {
+            "applicationName": "jws-app",
+            "replicas": 2,
+            "webImage": {
+              "applicationImage": "registry.redhat.io/jboss-webserver-5/jws57-openjdk11-openshift-rhel8@sha256:0d12d438216f2f37c8d088106853e1d203526d9052ef9ef4803c18e77e306279"
+            }
+          }
+        },
+        {
+          "apiVersion": "web.servers.org/v1alpha1",
+          "kind": "WebServer",
+          "metadata": {
+            "name": "example-imagestream-webserver"
+          },
+          "spec": {
+            "applicationName": "jws-app",
+            "replicas": 2,
+            "webImageStream": {
+              "imageStreamName": "jboss-webserver57-openjdk8-tomcat9-openshift-ubi8",
+              "imageStreamNamespace": "openshift",
+              "webSources": {
+                "contextDir": "tomcat-websocket-chat",
+                "sourceRepositoryRef": "1.2",
+                "sourceRepositoryUrl": "https://github.com/jboss-openshift/openshift-quickstarts.git"
+              }
+            }
+          }
+        }
+      ]
+    capabilities: Seamless Upgrades
+    features.operators.openshift.io/fips-compliant: 'false'
+    containerImage: >-
+      registry.redhat.io/jboss-webserver-5/jws5-rhel8-operator@sha256:f8ffc4fee985690460e2eb522d0c12478949247857acfd5ddc347d4c412cfa94
+    createdAt: '2024-02-02T10:20:34.230145Z'
+    categories: Application Runtime
+    features.operators.openshift.io/proxy-aware: 'false'
+    description: >-
+      Operator that creates and manages Java applications running on JWS or
+      Tomcat
+    features.operators.openshift.io/disconnected: 'true'
+    features.operators.openshift.io/tls-profiles: 'false'
+  name: jws-operator.v2.0.11
+  labels:
+    operatorframework.io/arch.amd64: supported
+    operatorframework.io/arch.ppc64le: supported
+    operatorframework.io/arch.s390x: supported
+    operators.coreos.com/jws-operator.dcelenta-test: ''
+spec:
+  customresourcedefinitions:
+    owned:
+      - description: Web Server is the schema for the webservers API
+        kind: WebServer
+        name: webservers.web.servers.org
+        version: v1alpha1
+  relatedImages:
+    - image: >-
+        registry.redhat.io/jboss-webserver-5/jws5-rhel8-operator@sha256:f8ffc4fee985690460e2eb522d0c12478949247857acfd5ddc347d4c412cfa94
+      name: >-
+        jws5-rhel8-operator-f8ffc4fee985690460e2eb522d0c12478949247857acfd5ddc347d4c412cfa94-annotation
+    - image: >-
+        registry.redhat.io/rhacm2/kube-rbac-proxy-rhel8@sha256:26561c1e88292f7ba1c8d636907a27e4288a6bb87628454466f7050a5de871df
+      name: kube-rbac-proxy
+    - image: >-
+        registry.redhat.io/jboss-webserver-5/jws5-rhel8-operator@sha256:f8ffc4fee985690460e2eb522d0c12478949247857acfd5ddc347d4c412cfa94
+      name: manager
+    - image: >-
+        registry.redhat.io/jboss-webserver-5/jws57-openjdk11-openshift-rhel8@sha256:0d12d438216f2f37c8d088106853e1d203526d9052ef9ef4803c18e77e306279
+      name: >-
+        jws57-openjdk11-openshift-rhel8-0d12d438216f2f37c8d088106853e1d203526d9052ef9ef4803c18e77e306279-annotation
+  cleanup:
+    enabled: false
+  apiservicedefinitions: {}
+  keywords:
+    - tomcat
+    - jws
+  displayName: JWS Operator
+  provider:
+    name: JWS team
+  maturity: alpha
+  installModes:
+    - supported: true
+      type: OwnNamespace
+    - supported: true
+      type: SingleNamespace
+    - supported: true
+      type: MultiNamespace
+    - supported: true
+      type: AllNamespaces
+  version: 2.0.11
+  icon:
+    - base64data: >-
+        PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48ZGVmcz48c3R5bGU+LmNscy0xe2ZpbGw6I2Q3MWUwMH0uY2xzLTJ7ZmlsbDojYzIxYTAwfS5jbHMtM3tmaWxsOiNmZmZ9LmNscy00e2ZpbGw6I2NkY2RjZH0uY2xzLTV7ZmlsbDojZWFlYWVhfTwvc3R5bGU+PC9kZWZzPjx0aXRsZT5Mb2dvPC90aXRsZT48ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIj48Y2lyY2xlIGNsYXNzPSJjbHMtMSIgY3g9IjUwIiBjeT0iNTAiIHI9IjUwIiB0cmFuc2Zvcm09InJvdGF0ZSgtNDUgNTAgNTApIi8+PHBhdGggY2xhc3M9ImNscy0yIiBkPSJNODUuMzYgMTQuNjRhNTAgNTAgMCAwIDEtNzAuNzIgNzAuNzJ6Ii8+PHBhdGggY2xhc3M9ImNscy0zIiBkPSJNNzEuNjEgMzUuODVMODEgMjYuNDNhMi43NCAyLjc0IDAgMCAwLTIuMjUtLjU4bC0xNC4wOSAyLjY3Yy0uNjQuMTItMS40NS4yMy0yLjM1LjMyTDUwIDQxLjE0IDM3LjcxIDI4Ljg1Yy4zNiAwLTEuNC0uMTUtMi4zNy0uMzRsLTE0LjEyLTIuNjVhMi43NCAyLjc0IDAgMCAwLTIuMjUuNThsOS40MiA5LjQyYy0zIDMuNzItNi42NCA5LjgtNy4wNiAxNy4zN0wyNiA1MS43MWExOS4yNCAxOS4yNCAwIDAgMCAuNzcgMTNsMy40NS0zLjMyUzMwLjI3IDY2IDM2IDcybC44Ni0zIDYuNDEgNi40MWE5LjUyIDkuNTIgMCAwIDAgMTMuNDYgMEw2My4xNCA2OWwuODYgM2M1Ljc2LTYgNS44NS0xMC42MSA1Ljg1LTEwLjYxbDMuNDUgMy4zMmExOS4yNCAxOS4yNCAwIDAgMCAuNzctMTNsNC42NCAxLjUyYy0uNDctNy41OC00LjE1LTEzLjY2LTcuMS0xNy4zOHptLTMzIDIxLjg4QTIuOTEgMi45MSAwIDAgMSAzNiA1My41N2wtLjg4LS44OGExIDEgMCAwIDEgMS40MS0xLjQxbC44OC44OGEyLjkyIDIuOTIgMCAxIDEgMS4yMyA1LjU3ek01NiA2MS42N2wtNSA1djQuNzJhMSAxIDAgMCAxLTIgMHYtNC43NGwtNS01YTEgMSAwIDAgMSAxLjQxLTEuNDFMNTAgNjQuODJsNC41Ny00LjU3QTEgMSAwIDAgMSA1NiA2MS42N3ptOS4xNC05bC0uODguODhhMi45NSAyLjk1IDAgMSAxLTEuNDEtMS40MWwuODgtLjg4YTEgMSAwIDAgMSAxLjQxIDEuNDF6bS40OC0xNS4wN0w1MCA1My4yMmwtMTUuNjEtMTUuNmEuNC40IDAgMCAxIC40Ny0uNjVMNTAgNDQuNTQgNjUuMTQgMzdhLjQuNCAwIDAgMSAuNDcuNjJ6Ii8+PHBhdGggY2xhc3M9ImNscy00IiBkPSJNODEuNDcgMjYuODh6TTY1LjE0IDM3TDUwIDQ0LjU0IDM0Ljg2IDM3YS40LjQgMCAwIDAtLjQ3LjY1TDUwIDUzLjIybDE1LjYxLTE1LjZhLjQuNCAwIDAgMC0uNDctLjYyeiIvPjxwYXRoIGNsYXNzPSJjbHMtNCIgZD0iTTYyLjMxIDI4LjgzYy0yLjg0LjI5LTYuNTYuNDQtOC42Mi40NGgtOC4zNGMtMiAwLTUuMS0uMTQtNy42NC0uNDJMNTAgNDEuMTR6Ii8+PHBhdGggZD0iTTU0LjU3IDYwLjI1TDUwIDY0LjgybC00LjU3LTQuNTdBMSAxIDAgMCAwIDQ0IDYxLjY3bDUgNXY0LjcyYTEgMSAwIDAgMCAyIDB2LTQuNzRsNS01YTEgMSAwIDAgMC0xLjQxLTEuNDF6TTM4LjYzIDUxLjg4YTIuOSAyLjkgMCAwIDAtMS4yMy4yOGwtLjg4LS44OGExIDEgMCAwIDAtMS40MSAxLjQxbC44OC44OGEyLjkyIDIuOTIgMCAxIDAgMi42NS0xLjY5ek02NS4xMyA1MS4yOGExIDEgMCAwIDAtMS40MSAwbC0uODguODhhMi45NSAyLjk1IDAgMSAwIDEuNDEgMS40MWwuODgtLjg4YTEgMSAwIDAgMCAwLTEuNDF6Ii8+PHBhdGggY2xhc3M9ImNscy01IiBkPSJNODIgMjguNjhhMi43NSAyLjc1IDAgMCAwIDAtLjU4di0uMThhMi43IDIuNyAwIDAgMC0uMTMtLjM5bC0uMDctLjE2YTIuNzQgMi43NCAwIDAgMC0uMjktLjQ3IDIuNzkgMi43OSAwIDAgMC0uNDQtLjQ1bC05LjQyIDkuNDJhMzYuMTYgMzYuMTYgMCAwIDEgMy44MiA1LjljNS4yNS0zLjEgNi40My05LjIxIDYuNjEtMTMuMDZ6TTE4IDI4LjY5Yy4xOCAzLjg1IDEuMzYgMTAgNi42MSAxMy4wNmEzNi4xNSAzNi4xNSAwIDAgMSAzLjgyLTUuOUwxOSAyNi40M2EyLjc0IDIuNzQgMCAwIDAtMSAyLjI2eiIvPjwvZz48L3N2Zz4=
+      mediatype: image/svg+xml
+  links:
+    - name: Jws Operator
+      url: 'https://jws-operator.domain'
+  install:
+    spec:
+      clusterPermissions:
+        - rules:
+            - apiGroups:
+                - apps
+              resources:
+                - deployments
+              verbs:
+                - create
+                - delete
+                - get
+                - list
+                - patch
+                - update
+                - watch
+            - apiGroups:
+                - apps
+              resources:
+                - deployments/finalizers
+              verbs:
+                - update
+            - apiGroups:
+                - apps
+              resources:
+                - jws-operator
+              verbs:
+                - update
+            - apiGroups:
+                - apps.openshift.io
+              resources:
+                - deploymentconfigs
+              verbs:
+                - create
+                - delete
+                - get
+                - list
+                - update
+                - watch
+            - apiGroups:
+                - build.openshift.io
+              resources:
+                - buildconfigs
+              verbs:
+                - create
+                - delete
+                - get
+                - list
+                - watch
+            - apiGroups:
+                - build.openshift.io
+              resources:
+                - builds
+              verbs:
+                - create
+                - delete
+                - get
+                - list
+                - watch
+            - apiGroups:
+                - ''
+              resources:
+                - configmaps
+              verbs:
+                - create
+                - delete
+                - get
+                - list
+                - watch
+            - apiGroups:
+                - ''
+              resources:
+                - namespaces
+              verbs:
+                - get
+            - apiGroups:
+                - ''
+              resources:
+                - persistentvolumeclaims
+              verbs:
+                - create
+                - delete
+                - get
+                - list
+                - watch
+            - apiGroups:
+                - ''
+              resources:
+                - pods
+              verbs:
+                - create
+                - delete
+                - get
+                - list
+                - watch
+            - apiGroups:
+                - ''
+              resources:
+                - services
+              verbs:
+                - create
+                - delete
+                - get
+                - list
+                - watch
+            - apiGroups:
+                - ''
+              resources:
+                - services/finalizers
+              verbs:
+                - update
+            - apiGroups:
+                - image.openshift.io
+              resources:
+                - imagestreams
+              verbs:
+                - create
+                - delete
+                - get
+                - list
+                - watch
+            - apiGroups:
+                - monitoring.coreos.com
+              resources:
+                - servicemonitors
+              verbs:
+                - create
+                - delete
+                - get
+                - list
+                - watch
+            - apiGroups:
+                - rbac.authorization.k8s.io
+              resources:
+                - rolebindings
+              verbs:
+                - create
+                - get
+                - grant
+                - list
+                - watch
+            - apiGroups:
+                - route.openshift.io
+              resources:
+                - routes
+              verbs:
+                - create
+                - delete
+                - get
+                - list
+                - watch
+            - apiGroups:
+                - web.servers.org
+              resources:
+                - webservers
+              verbs:
+                - create
+                - delete
+                - get
+                - list
+                - patch
+                - update
+                - watch
+            - apiGroups:
+                - web.servers.org
+              resources:
+                - webservers/finalizers
+              verbs:
+                - update
+            - apiGroups:
+                - web.servers.org
+              resources:
+                - webservers/status
+              verbs:
+                - get
+                - patch
+                - update
+            - apiGroups:
+                - authentication.k8s.io
+              resources:
+                - tokenreviews
+              verbs:
+                - create
+            - apiGroups:
+                - authorization.k8s.io
+              resources:
+                - subjectaccessreviews
+              verbs:
+                - create
+          serviceAccountName: jws-operator-controller-manager
+      deployments:
+        - name: jws-operator-controller-manager
+          spec:
+            replicas: 1
+            selector:
+              matchLabels:
+                control-plane: controller-manager
+            strategy: {}
+            template:
+              metadata:
+                creationTimestamp: null
+                labels:
+                  control-plane: controller-manager
+              spec:
+                containers:
+                  - args:
+                      - '--secure-listen-address=0.0.0.0:8443'
+                      - '--upstream=http://127.0.0.1:8080/'
+                      - '--logtostderr=true'
+                      - '--v=10'
+                    image: >-
+                      registry.redhat.io/rhacm2/kube-rbac-proxy-rhel8@sha256:26561c1e88292f7ba1c8d636907a27e4288a6bb87628454466f7050a5de871df
+                    name: kube-rbac-proxy
+                    ports:
+                      - containerPort: 8443
+                        name: https
+                        protocol: TCP
+                    resources: {}
+                  - args:
+                      - '--health-probe-bind-address=:8081'
+                      - '--metrics-bind-address=127.0.0.1:8080'
+                      - '--leader-elect'
+                    command:
+                      - /usr/local/bin/jws-operator
+                    image: >-
+                      registry.redhat.io/jboss-webserver-5/jws5-rhel8-operator@sha256:f8ffc4fee985690460e2eb522d0c12478949247857acfd5ddc347d4c412cfa94
+                    livenessProbe:
+                      httpGet:
+                        path: /healthz
+                        port: 8081
+                      initialDelaySeconds: 15
+                      periodSeconds: 20
+                    name: manager
+                    readinessProbe:
+                      httpGet:
+                        path: /readyz
+                        port: 8081
+                      initialDelaySeconds: 5
+                      periodSeconds: 10
+                    resources:
+                      limits:
+                        cpu: 200m
+                        memory: 100Mi
+                      requests:
+                        cpu: 100m
+                        memory: 20Mi
+                    securityContext:
+                      allowPrivilegeEscalation: false
+                      capabilities:
+                        drop:
+                          - ALL
+                      runAsNonRoot: true
+                      seccompProfile:
+                        type: RuntimeDefault
+                securityContext:
+                  runAsNonRoot: true
+                serviceAccountName: jws-operator-controller-manager
+                terminationGracePeriodSeconds: 10
+      permissions:
+        - rules:
+            - apiGroups:
+                - ''
+              resources:
+                - configmaps
+              verbs:
+                - get
+                - list
+                - watch
+                - create
+                - update
+                - patch
+                - delete
+            - apiGroups:
+                - coordination.k8s.io
+              resources:
+                - leases
+              verbs:
+                - get
+                - list
+                - watch
+                - create
+                - update
+                - patch
+                - delete
+            - apiGroups:
+                - ''
+              resources:
+                - events
+              verbs:
+                - create
+                - patch
+          serviceAccountName: jws-operator-controller-manager
+    strategy: deployment
+  description: Operator that creates and manages Java applications running on JWS or Tomcat
+  replaces: jws-operator.v2.0.10
