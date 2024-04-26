@@ -1,7 +1,7 @@
 apiVersion: operators.coreos.com/v1
 kind: OperatorGroup
 metadata:
-  name: dcelenta-test-xxxxx
+  name: oper-test-xxxxx
 spec:
   targetNamespaces:
     - redhat-pruebas
