@@ -4,6 +4,6 @@ metadata:
   name: oper-test-xxxxx
 spec:
   targetNamespaces:
-    - redhat-pruebas
+    -  {{ .Values.namespace }}
   upgradeStrategy: Default
 
