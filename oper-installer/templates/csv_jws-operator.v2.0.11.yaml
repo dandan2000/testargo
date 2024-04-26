@@ -8,7 +8,6 @@ metadata:
     features.operators.openshift.io/token-auth-gcp: 'false'
     operators.operatorframework.io/project_layout: go.kubebuilder.io/v3
     certified: 'false'
-# REVIEW    
     olm.targetNamespaces: {{ .Values.namespace }}
     olm.operatorNamespace: {{ .Values.namespace }}
     olm.operatorGroup: {{ .Values.operatorgroup }}    
