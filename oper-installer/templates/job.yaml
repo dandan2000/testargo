@@ -1,0 +1,27 @@
+kind: Job
+apiVersion: batch/v1
+metadata:
+  name: oper-helper-job
+spec:
+  parallelism: 1
+  completions: 1
+  backoffLimit: 6
+  template:
+    metadata:
+      name: oper-helper-job
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: oper-helper-job
+          image: registry.redhat.io/openshift4/ose-cli:v4.14.0-202404161544.p0.gf7b14a9.assembly.stream.el8
+          command:
+            - /bin/bash
+            - '-c'
+            - | 
+              IPN=$(oc get subscriptions.operators.coreos.com jws-operator  -o jsonpath={.status.installplan.name})
+              echo $IPN
+              oc patch installplan $IPN --type='json' -p '[{"op": "replace", "path": "/spec/approved", "value":true}]'
+          resources: {}
+          imagePullPolicy: IfNotPresent
+      serviceAccountName: oper-helper
+      serviceAccount: oper-helper
