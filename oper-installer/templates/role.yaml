@@ -5,4 +5,4 @@ metadata:
 rules:
 - apiGroups: ["operators.coreos.com"]
   resources: ["subscriptions", "installplans"]
-  verbs: ["get", "list", "watch", patch]
+  verbs: ["get", "list", "watch", "patch"]
