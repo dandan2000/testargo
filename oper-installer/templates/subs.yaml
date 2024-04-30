@@ -8,6 +8,6 @@ spec:
   name:  {{ .Values.operator }}
   source: redhat-operators
   sourceNamespace: openshift-marketplace
-# Para instalar un version en particular, si instalara la mas reciente  
+# Para instalar un version en particular, sino instalara la mas reciente  
   startingCSV: jws-operator.v2.0.9
 
