@@ -20,7 +20,7 @@ spec:
             - /bin/bash
             - '-c'
             - | 
-              IPN=$(oc get subscriptions.operators.coreos.com jws-operator  -o jsonpath={.status.installplan.name})
+              IPN=$(oc get subscriptions.operators.coreos.com  {{ .Values.operator }}  -o jsonpath={.status.installplan.name})
               echo $IPN
               oc patch installplan $IPN --type='json' -p '[{"op": "replace", "path": "/spec/approved", "value":true}]'
           resources: {}
