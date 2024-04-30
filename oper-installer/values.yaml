@@ -20,3 +20,4 @@ operatornamespace: redhat-pruebas
 operatorgroup: jws-operator-group
 
 
+channel: threescale-2.14
