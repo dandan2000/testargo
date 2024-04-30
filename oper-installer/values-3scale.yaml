@@ -1,0 +1,20 @@
+# Default values for oper-installer.
+# Para setear automaticamente el manejo del namespace por ArgoCD
+# es necesario que el project de argo tenga a kind namespace en CLUSTER RESOURCE ALLOW LIST 
+
+
+# donde se instala el operador
+namespace: redhat-pruebas
+
+# donde se instalan los recursos creados por el operador, generalmente igual a namespace
+targetnamespace: redhat-pruebas
+
+# operador a instalar, debe ser el nombre exacto
+operator: 3scale-operator
+
+# Depende del operador, esto es donde se graba el objeto OG correspondiente al operador a 
+# instalar, muchos operadores comparten el OG
+operatornamespace: redhat-pruebas 
+
+# name del OG, puede ser fantasia
+operatorgroup: rp-operator-group
