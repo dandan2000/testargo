@@ -14,5 +14,5 @@ spec:
   source: redhat-operators
   sourceNamespace: openshift-marketplace
 # Para instalar un version en particular, sino instalara la mas reciente  
-  startingCSV: jws-operator.v2.0.9
+  startingCSV: jws-operator.v2.0.11
 
