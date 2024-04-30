@@ -8,7 +8,7 @@ metadata:
         - /spec/installPlanApproval
         - /status  
 spec:
-  channel: alpha
+  channel: {{ .Values.channel }}
   installPlanApproval: Manual
   name:  {{ .Values.operator }}
   source: redhat-operators
