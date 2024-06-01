@@ -1,0 +1,22 @@
+# Default values for oper-installer.
+# Para setear automaticamente el manejo del namespace por ArgoCD
+# es necesario que el project de argo tenga a kind namespace en CLUSTER RESOURCE ALLOW LIST 
+
+
+# donde se instala el operador
+namespace: openshift-operators
+# donde se instalan los recursos creados por el operador, generalmente igual a namespace
+targetnamespace: openshift-operators
+
+# operador a instalar, debe ser el nombre exacto
+operator: openshift-pipelines-operator-rh.v1.11.2
+channel: pipelines-1.11
+
+# Depende del operador, esto es donde se graba el objeto OG correspondiente al operador a 
+# instalar, muchos operadores comparten el OG
+operatornamespace: openshift-operators
+# name del OG, puede ser fantasia
+operatorgroup: global-operators
+
+
+

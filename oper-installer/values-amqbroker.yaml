@@ -1,0 +1,20 @@
+# Default values for oper-installer.
+# Para setear automaticamente el manejo del namespace por ArgoCD
+# es necesario que el project de argo tenga a kind namespace en CLUSTER RESOURCE ALLOW LIST 
+#DONE
+
+# donde se instala el operador
+namespace: amq-broker
+
+# donde se instalan los recursos creados por el operador, generalmente igual a namespace
+targetnamespace: amq-broker
+
+# operador a instalar, debe ser el nombre exacto
+operator: amq-broker-rhel8
+channel: 7.11.x
+
+# Depende del operador, esto es donde se graba el objeto OG correspondiente al operador a 
+# instalar, muchos operadores comparten el OG
+operatornamespace: amq-broker 
+# name del OG, puede ser fantasia
+operatorgroup: amq-broker
