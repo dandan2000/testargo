@@ -17,6 +17,7 @@ operator: jws-operator
 operatornamespace: redhat-pruebas 
 
 # name del OG, puede ser fantasia
+# debe ser el mismo nombre para distinto Operadores en el mismo ns
 operatorgroup: jws-operator-group
 
 

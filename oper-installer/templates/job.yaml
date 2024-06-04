@@ -2,6 +2,7 @@ kind: Job
 apiVersion: batch/v1
 metadata:
   name: oper-helper-job
+  namespace: {{ .Values.namespace }}
   annotations:
     argocd.argoproj.io/sync-wave: "1"  
 spec:
