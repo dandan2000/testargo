@@ -1,22 +1,24 @@
 {{- $exists := lookup "operators.coreos.com/v1" "OperatorGroup" .Values.namespace "" }}
 ## Si no existe un operatorgroup en el ns lo creo, si existe no hago nada
-{{- if (eq (len $exists.items)  0 ) }}
+{{- if $exists }}
+  {{- if (eq (len $exists.items)  0 ) }}
 apiVersion: operators.coreos.com/v1
 kind: OperatorGroup
 metadata:
   name: {{ .Values.operatorgroup }}
   namespace: {{ .Values.namespace }}
 spec:
-  {{- if .Values.includeTargetNS }}
-  targetNamespaces:
-    -  {{ .Values.namespace }}
+    {{- if .Values.includeTargetNS }}
+    targetNamespaces:
+      -  {{ .Values.namespace }}
+    {{- end }}
+    upgradeStrategy: Default
+  {{- else if (eq (len $exists.items)  1 ) }}
+  ## este else if solo tiene sentido en el contexto de Helm, desde ArgoCD no deberia ser necesario.
+  {{- $operatorGroupName := (index $exists.items 0).metadata.name }}
+  apiVersion: operators.coreos.com/v1
+  kind: OperatorGroup
+  metadata:
+    name: {{ $operatorGroupName }}
   {{- end }}
-  upgradeStrategy: Default
-{{- else if (eq (len $exists.items)  1 ) }}
-## este else if solo tiene sentido en el contexto de Helm, desde ArgoCD no deberia ser necesario.
-{{- $operatorGroupName := (index $exists.items 0).metadata.name }}
-apiVersion: operators.coreos.com/v1
-kind: OperatorGroup
-metadata:
-  name: {{ $operatorGroupName }}
 {{- end }}
