@@ -1,5 +1,5 @@
-## Si no existe un operatorgroup en el ns lo creo, si existe no hago nada
 {{- $exists := lookup "operators.coreos.com/v1" "OperatorGroup" .Values.namespace "" }}
+## Si no existe un operatorgroup en el ns lo creo, si existe no hago nada
 {{- if (eq (len $exists.items)  0 ) }}
 apiVersion: operators.coreos.com/v1
 kind: OperatorGroup
@@ -7,7 +7,10 @@ metadata:
   name: {{ .Values.operatorgroup }}
   namespace: {{ .Values.namespace }}
 spec:
+  {{- if include "startsWithOpenshift" . }}
+  {{- else}}
   targetNamespaces:
     -  {{ .Values.namespace }}
+  {{- end }}
   upgradeStrategy: Default
 {{- end }}
