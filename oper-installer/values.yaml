@@ -8,6 +8,8 @@ namespace: redhat-pruebas
 
 # donde se instalan los recursos creados por el operador, generalmente igual a namespace
 targetnamespace: redhat-pruebas
+# define si se incluye el tag targetnamespace en el operatorgroup, segun el tipo de operador
+includeTargetNS: false
 
 # operador a instalar, debe ser el nombre exacto
 operator: jws-operator

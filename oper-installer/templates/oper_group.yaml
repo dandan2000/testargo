@@ -7,10 +7,16 @@ metadata:
   name: {{ .Values.operatorgroup }}
   namespace: {{ .Values.namespace }}
 spec:
-  {{- if include "startsWithOpenshift" . }}
-  {{- else}}
+  {{- if .Values.includeTargetNS }}
   targetNamespaces:
     -  {{ .Values.namespace }}
   {{- end }}
   upgradeStrategy: Default
+{{- else if (eq (len $exists.items)  1 ) }}
+## este else if solo tiene sentido en el contexto de Helm, desde ArgoCD no deberia ser necesario.
+{{- $operatorGroupName := (index $exists.items 0).metadata.name }}
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: {{ $operatorGroupName }}
 {{- end }}

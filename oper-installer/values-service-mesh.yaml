@@ -7,6 +7,8 @@
 namespace: openshift-operators
 # donde se instalan los recursos creados por el operador, generalmente igual a namespace
 targetnamespace: openshift-operators
+# define si se incluye el tag targetnamespace en el operatorgroup, segun el tipo de operador
+includeTargetNS: false
 
 # operador a instalar, debe ser el nombre exacto
 operator: servicemeshoperator

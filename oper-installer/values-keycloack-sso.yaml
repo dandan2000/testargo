@@ -7,6 +7,8 @@
 namespace: app-sso-service
 # donde se instalan los recursos creados por el operador, generalmente igual a namespace
 targetnamespace: app-sso-service
+# define si se incluye el tag targetnamespace en el operatorgroup, segun el tipo de operador
+includeTargetNS: true
 
 # operador a instalar, debe ser el nombre exacto
 operator: rhsso-operator
